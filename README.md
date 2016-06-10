@@ -15,4 +15,4 @@ If you're running the Docker engine nativly in your environment visit the follow
 
 If you're a Mac OSx or Windows user that requires a VM to execute the Docker engine, switch **localhost** for the VM IP address; i.e: **http://192.168.99.100:3000**.
 
->> If you're using docker-machine to setup a VM for the Docker engine, execute the following command to get the host IP address: ***docker-machine ip MACHINE_NAME*** (usually default)
+> If you're using docker-machine to setup a VM for the Docker engine, execute the following command to get the host IP address: ***docker-machine ip MACHINE_NAME*** (usually default)
