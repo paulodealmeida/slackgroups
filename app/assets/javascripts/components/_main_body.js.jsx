@@ -7,20 +7,20 @@ var MainBody = React.createClass({
     componentDidMount() {
 
     	$.ajax({ 
-		   type: "GET",
-		   dataType: "jsonp",
-		   url: url_groups, 
-		   success: function(data) {        
-		     this.setState({ groups: data })
-		   }.bind(this)
-		});
+        type: "GET",
+        dataType: "jsonp",
+        url: url_groups, 
+        success: function(data) {        
+          this.setState({ groups: data })
+        }.bind(this)
+		  });
     },
 
-    render() {
-        return (
-            <div>
-            	<DisplayGroups groups={this.state.groups} />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="container">
+          <DisplayGroups groups={this.state.groups} />
+      </div>
+    )
+  }
 });
