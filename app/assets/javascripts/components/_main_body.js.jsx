@@ -1,7 +1,9 @@
 var MainBody = React.createClass({
 
     getInitialState() {
-        return { groups: [] }
+        return { 
+          groups: [],
+          group: null }
     },
 
     componentDidMount() {
@@ -20,6 +22,12 @@ var MainBody = React.createClass({
     return (
       <div className="container">
           <DisplayGroups groups={this.state.groups} />
+          <ModalAddGroup />
+          <ModalShowGroup group={group} />
+
+          <a className="btn-floating btn-large waves-effect waves-light modal-trigger red bnt-right-bottom" href="#modalAddGroup">
+            <i className="material-icons">add</i>
+          </a>
       </div>
     )
   }

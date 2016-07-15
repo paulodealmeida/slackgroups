@@ -1,11 +1,16 @@
 var DisplayGroups = React.createClass({
 
   render() {
+
+    var divStyle = {
+      height: '200px'
+    };
+
     var groups = this.props.groups.map((group) => {
       return (
 
-          <div className="col s12 m4">
-            <div className="card small white">
+          <div className="col s12 m4 l4">
+            <div className="card small white" >
               <div className="card-content grey-text text-darken-4">
                 <span className="card-title">{group.title}</span>
                 <p className="grey-text text-darken-2">{group.description}</p>

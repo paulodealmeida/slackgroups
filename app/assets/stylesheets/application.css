@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+.bnt-right-bottom {
+	bottom: 25px !important;
+	right: 24px !important;
+	position: fixed;
+}
+
+.card.small .card-content {
+    max-height: 200px;
+}
