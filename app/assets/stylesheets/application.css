@@ -27,3 +27,9 @@
 .link_group {
 	text-transform: uppercase;
 }
+
+.input-error {
+	color: #F00;
+	font-size: .7em;
+	margin-top: -10px;
+}

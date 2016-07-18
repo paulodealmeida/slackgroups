@@ -24,6 +24,10 @@ var MainBody = React.createClass({
     $('#modalShowGroup').openModal();
   },  
 
+  showAddGroupModal(){
+    $('#modalAddGroup').openModal();
+  }, 
+
   render() {
     return (              
       <div className="container">
@@ -31,7 +35,7 @@ var MainBody = React.createClass({
         <ModalAddGroup />
         <ModalShowGroup group={this.state.group} />
 
-        <a className="btn-floating btn-large waves-effect waves-light modal-trigger red bnt-right-bottom" href="#modalAddGroup">
+        <a className="btn-floating btn-large waves-effect waves-light modal-trigger red bnt-right-bottom" href="#" onClick={this.showAddGroupModal}>
           <i className="material-icons">add</i>
         </a>
       </div>
