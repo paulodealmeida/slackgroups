@@ -1,7 +1,6 @@
 var ModalAddGroup = React.createClass({
 
   componentDidMount: function() {
-    $('.modal-trigger').leanModal();
   },
 
   render() {

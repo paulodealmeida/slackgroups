@@ -21,5 +21,9 @@
 }
 
 .card.small .card-content {
-    max-height: 200px;
+	max-height: 200px;
+}
+
+.link_group {
+	text-transform: uppercase;
 }

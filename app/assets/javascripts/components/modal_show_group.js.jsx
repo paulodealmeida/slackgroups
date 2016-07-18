@@ -1,7 +1,10 @@
 var ModalShowGroup = React.createClass({
 
   componentDidMount: function() {
-    $('.modal-trigger').leanModal();
+  },
+
+  close: function() {
+    $('#modalShowGroup').closeModal();
   },
 
   render() {
@@ -12,9 +15,10 @@ var ModalShowGroup = React.createClass({
         <div className="modal-content">
           <h4>{this.props.group.title}</h4>
           <p>{this.props.group.description}</p>
+          <a href={this.props.group.link} target="_blank" className="link_group">{this.props.group.url}</a>
         </div>
         <div className="modal-footer">
-          <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+          <a href="#" onClick={this.close} className="waves-effect waves-green btn-flat">Close</a>
         </div>
       </div>
     )
