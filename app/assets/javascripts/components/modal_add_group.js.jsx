@@ -19,35 +19,39 @@ var ModalAddGroup = React.createClass({
 
     if (this.validateFields(group)) {
       $.ajax({
-        url: '/api/v1/items',
+        url: url_groups,
         type: 'POST',
-        data: { item: { name: name, description: description } },
-        success: (item) => {
-          this.props.handleSubmit(item);
-        }
+        data: { group: group },
+        success: (group) => {
+          this.props.reloadGoups();
+          $('#modalAddGroup').closeModal();
+          this.clearFormValues();
+        }.bind(this)
       });
     }
   },
 
   validateFields: function(group) {
-
     var errors = [];
-
     if (group.title == null || group.title.length < 2) {
       errors.push('title');
     }
-
     if (group.url == null || !this.validateURL(group.url)) {
       errors.push('url');
     }
-
     this.setState({ errors: errors })
-    return false;
+    return errors.length <= 0;
   },
 
   validateURL: function(textval) {
     var urlregex = /^([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
     return urlregex.test(textval);
+  },
+
+  clearFormValues: function() {
+    this.refs.title.value = "";
+    this.refs.description.value = "";
+    this.refs.url.value = "";
   },
 
   render() {

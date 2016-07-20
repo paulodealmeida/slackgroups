@@ -9,9 +9,13 @@ var MainBody = React.createClass({
 
   componentDidMount() {
 
+    this.reloadGoups();
+  },
+
+  reloadGoups: function() {
+
     $.ajax({ 
       type: "GET",
-      dataType: "jsonp",
       url: url_groups, 
       success: function(data) {        
         this.setState({ groups: data })
@@ -32,7 +36,7 @@ var MainBody = React.createClass({
     return (              
       <div className="container">
         <DisplayGroups groups={this.state.groups} showGroupDetails={this.showGroupDetails} />
-        <ModalAddGroup />
+        <ModalAddGroup reloadGoups={this.reloadGoups} />
         <ModalShowGroup group={this.state.group} />
 
         <a className="btn-floating btn-large waves-effect waves-light modal-trigger red bnt-right-bottom" href="#" onClick={this.showAddGroupModal}>
