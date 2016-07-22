@@ -11,3 +11,9 @@
 /log/*
 !/log/.keep
 /tmp
+
+#front-end ignores:
+/front-end/node_modules/*
+/public/jspm_packages/*
+/public/script/*
+/pubilc/css/*
