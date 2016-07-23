@@ -48,4 +48,42 @@ describe Api::V1::UsersController, type: :controller do
       it { should respond_with 422 }
     end
   end
+
+  describe 'PUT/PATCH #update' do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
+
+    context 'when user is successfully updated' do
+      before(:each) do
+        patch :update,
+          { id: @user.id, user: { email: 'new_email@mail.com' } },
+          format: :json
+      end
+
+      it 'renders the json representation for the updated user' do
+        expect(json_response[:email]).to eq('new_email@mail.com')
+      end
+
+      it { should respond_with 204 }
+    end
+
+    context 'when user is not updated' do
+      before(:each) do
+        patch :update,
+          { id: @user.id, user: { email: '' } },
+          format: :json
+      end
+
+      it 'renders an errors json' do
+        expect(json_response).to have_key(:errors)
+      end
+
+      it 'renders the json errors when the user could not be updated' do
+        expect(json_response[:errors][:email]).to include("can't be blank")
+      end
+
+      it { should respond_with 422 }
+    end
+  end
 end
