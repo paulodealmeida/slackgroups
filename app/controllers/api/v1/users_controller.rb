@@ -22,6 +22,12 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    user = find_user
+    user.destroy
+    head :no_content
+  end
+
   private
 
   def find_user
