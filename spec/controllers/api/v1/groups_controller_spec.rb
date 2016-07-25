@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V1::GroupsController, :type => :controller do
+describe Api::V1::GroupsController, type: :controller do
 
   describe 'GET #index' do
     before(:each) do
@@ -45,8 +45,8 @@ describe Api::V1::GroupsController, :type => :controller do
 
     context 'when is not created' do
       before(:each) do
-        @invalid_user_attributes = { title: nil, amount: nil, date: nil }
-        post :create, { group: @invalid_user_attributes }, format: :json
+        @invalid_group_attributes = { title: nil, amount: nil, date: nil }
+        post :create, { group: @invalid_group_attributes }, format: :json
       end
 
       it 'renders an errors json' do
@@ -75,7 +75,7 @@ describe Api::V1::GroupsController, :type => :controller do
           format: :json
       end
 
-      it 'renders the json representation for the updated user' do
+      it 'renders the json representation for the updated group' do
         expect(json_response[:title]).to eq('New title')
       end
 
