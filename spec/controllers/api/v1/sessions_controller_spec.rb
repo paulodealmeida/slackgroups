@@ -37,4 +37,32 @@ describe Api::V1::SessionsController, type: :controller do
       it { should respond_with 422 }
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'when logout correctly' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before(:each) do
+        credentials = { email: user.email, password: '12345678' }
+        post :create, { session: credentials }, format: :json
+        user.reload
+        @user_auth_token = user.auth_token
+        delete :destroy, { id: @user_auth_token }, format: :json
+      end
+
+      it 'cannot bet found anymore' do
+        expect{ User.find_by!(auth_token: @user_auth_token) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it { should respond_with 204 }
+    end
+
+    context "when doesn't exists" do
+      before(':each') do
+        delete :destroy, { id: 'unusedtoken' }, format: :json
+      end
+
+      it { should respond_with 401 }
+    end
+  end
 end
