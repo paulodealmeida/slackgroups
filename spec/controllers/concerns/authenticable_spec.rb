@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 class Authentication < ActionController::Base
-  include Authenticable
+  include Concerns::Authenticable
 end
 
-describe Authenticable do
+describe Concerns::Authenticable do
   let(:user) { FactoryGirl.create(:user) }
   let(:authentication) { Authentication.new }
   subject { authentication }
