@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::GroupsController, type: :controller do
+  before(:each) { request.headers['Accept'] = 'application/vnd.slackgroups.v1' }
 
   describe 'GET #index' do
     before(:each) do
