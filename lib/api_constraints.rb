@@ -5,6 +5,10 @@ class ApiConstraints
   end
 
   def matches?(req)
-    @default || req.headers['Accept'].include?("application/vnd.slackgroups.v#{@version}")
+    @default ||
+      (req.respond_to?('headers') &&
+       req.headers.key?('Accept') &&
+       req.headers['Accept'].include?(
+         "application/vnd.slackgroups.v#{@version}"))
   end
 end
