@@ -1,48 +1,52 @@
-module Api::V1
-  class GroupsController < ApiController
-    def index
-      groups = Group.all
-      render json: groups, callback: params[:callback]
-    end
+module Api
+  module V1
+    class GroupsController < ApiController
+      skip_before_action :auth_with_token!
 
-    def show
-      group = find_group
-      render json: group
-    end
-
-    def create
-      group = Group.new(group_params)
-
-      if group.save
-        render json: group, status: :created
-      else
-        render json: { errors: group.errors }, status: :unprocessable_entity
+      def index
+        groups = Group.all
+        render json: groups, callback: params[:callback]
       end
-    end
 
-    def update
-      group = find_group
-      if group.update(group_params)
-        render json: group, status: :no_content
-      else
-        render json: { errors: group.errors }, status: :unprocessable_entity
+      def show
+        group = find_group
+        render json: group
       end
-    end
 
-    def destroy
-      group = find_group
-      group.destroy
-      head :no_content
-    end
+      def create
+        group = Group.new(group_params)
 
-    private
+        if group.save
+          render json: group, status: :created
+        else
+          render json: { errors: group.errors }, status: :unprocessable_entity
+        end
+      end
 
-    def find_group
-      Group.find(params[:id])
-    end
+      def update
+        group = find_group
+        if group.update(group_params)
+          render json: group, status: :no_content
+        else
+          render json: { errors: group.errors }, status: :unprocessable_entity
+        end
+      end
 
-    def group_params
-      params.require(:group).permit(:title, :description, :url)
+      def destroy
+        group = find_group
+        group.destroy
+        head :no_content
+      end
+
+      private
+
+      def find_group
+        Group.find(params[:id])
+      end
+
+      def group_params
+        params.require(:group).permit(:title, :description, :url)
+      end
     end
   end
 end

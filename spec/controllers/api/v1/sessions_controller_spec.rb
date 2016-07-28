@@ -1,15 +1,12 @@
 require 'rails_helper'
 
 describe Api::V1::SessionsController, type: :controller do
-
   describe 'POST #create' do
-
     before(:each) do
       @user = FactoryGirl.create(:user)
     end
 
     context 'when the credentials are correct' do
-
       before(:each) do
         credentials = { email: @user.email, password: '12345678' }
         post :create, { session: credentials }, format: :json
@@ -24,10 +21,9 @@ describe Api::V1::SessionsController, type: :controller do
     end
 
     context 'when the credentials are incorrect' do
-
       before(:each) do
         credentials = { email: @user.email, password: 'wrongpassword' }
-        post :create, { session: credentials }
+        post :create, session: credentials
       end
 
       it 'returns a json with an error' do
@@ -43,15 +39,14 @@ describe Api::V1::SessionsController, type: :controller do
       let(:user) { FactoryGirl.create(:user) }
 
       before(:each) do
-        credentials = { email: user.email, password: '12345678' }
-        post :create, { session: credentials }, format: :json
-        user.reload
-        @user_auth_token = user.auth_token
-        delete :destroy, { id: @user_auth_token }, format: :json
+        request.headers['Authorization'] = user.auth_token
+        delete :destroy, { id: user.auth_token }, format: :json
       end
 
       it 'cannot bet found anymore' do
-        expect{ User.find_by!(auth_token: @user_auth_token) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect do
+          User.find_by!(auth_token: user.auth_token)
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       it { should respond_with 204 }

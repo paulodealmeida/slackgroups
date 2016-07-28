@@ -57,8 +57,8 @@ describe Api::V1::UsersController, type: :controller do
     context 'when user is successfully updated' do
       before(:each) do
         patch :update,
-          { id: @user.id, user: { email: 'new_email@mail.com' } },
-          format: :json
+              { id: @user.id, user: { email: 'new_email@mail.com' } },
+              format: :json
       end
 
       it 'renders the json representation for the updated user' do
@@ -71,8 +71,8 @@ describe Api::V1::UsersController, type: :controller do
     context 'when user is not updated' do
       before(:each) do
         patch :update,
-          { id: @user.id, user: { email: '' } },
-          format: :json
+              { id: @user.id, user: { email: '' } },
+              format: :json
       end
 
       it 'renders an errors json' do
@@ -90,6 +90,7 @@ describe Api::V1::UsersController, type: :controller do
   describe 'DELETE #destroy' do
     before(:each) do
       @user = FactoryGirl.create(:user)
+      request.headers['Authorization'] = @user.auth_token
       delete :destroy, { id: @user.id }, format: :json
     end
 
