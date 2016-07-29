@@ -13,23 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
-.bnt-right-bottom {
-	bottom: 25px !important;
-	right: 24px !important;
-	position: fixed;
-}
-
-.card.small .card-content {
-	max-height: 200px;
-}
-
-.link_group {
-	text-transform: uppercase;
-}
-
-.input-error {
-	color: #F00;
-	font-size: .7em;
-	margin-top: -10px;
-}
