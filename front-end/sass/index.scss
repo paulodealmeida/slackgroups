@@ -1,1 +1,39 @@
 * {margin:0;padding: 0}
+
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  font-size: 13px;
+  line-height: 20px;
+  margin: 0;
+  background-color: #F5F5F5;
+}
+
+.bnt-right-bottom {
+	bottom: 25px !important;
+	right: 24px !important;
+	position: fixed; 
+}
+
+.card.small .card-content {
+	max-height: 200px;
+}
+
+.link_group {
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #0D47A1;
+	font-weight: 400;
+}
+
+.input-error {
+	color: #F00;
+	font-size: .7em;
+	margin-top: -10px;
+}
+
+.clickable {
+	cursor: pointer;
+}

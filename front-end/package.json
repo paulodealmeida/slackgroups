@@ -12,10 +12,17 @@
       "baseURL": "../public"
     },
     "dependencies": {
+      "axios": "npm:axios@^0.13.1",
+      "material-ui": "npm:material-ui@^0.15.2",
       "react": "npm:react@^15.2.1",
-      "react-dom": "npm:react-dom@^15.2.1"
+      "react-dom": "npm:react-dom@^15.2.1",
+      "react-tap-event-plugin": "npm:react-tap-event-plugin@^1.0.0"
     },
-    "devDependencies": {}
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
