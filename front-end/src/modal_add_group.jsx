@@ -10,11 +10,21 @@ var ModalAddGroup = React.createClass({
 
   getInitialState: function() {
     return { 
-      open: false
+      open: false,
+      errorTextName: "",
+      errorTextUrl: "",
+      errorTextDescription: ""
     }
   },
 
+  resetErrorMessage: function() {
+    this.setState({ errorTextName: "" });
+    this.setState({ errorTextUrl: "" });
+    this.setState({ errorTextDescription: "" });
+  },
+
   handleOpen: function() {
+    this.resetErrorMessage();
     this.setState({open: true});
   },
 
@@ -23,7 +33,22 @@ var ModalAddGroup = React.createClass({
   },
 
   handleAddGroup: function() {
-    this.setState({open: false});
+
+    var hasError = this.validateEmpty(this.state.name) ? false : this.setState({ errorTextName: "This field is required." });
+    hasError += this.validateEmpty(this.state.url) ? false : this.setState({ errorTextUrl: "This field is required." });
+    hasError += this.validateEmpty(this.state.Description) ? false : this.setState({ errorTextDescription: "This field is required." });
+
+    console.log(hasError);
+
+    // this.setState({open: false});
+  },
+
+  validateEmpty: function(element) {
+
+    if (element == null || element == '') {
+      return false;
+    }
+    return true;
   },
 
   render() {
@@ -56,13 +81,13 @@ var ModalAddGroup = React.createClass({
       
             <div className="row">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Name" value={this.state.name} errorText="This field is required." fullWidth={true} />
+                <TextField hintText="Name" value={this.state.name} errorText={this.state.errorTextName} fullWidth={true} />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Link" value={this.state.url} errorText="This field is required." fullWidth={true} />
+                <TextField hintText="Link" value={this.state.url} errorText={this.state.errorTextUrl} fullWidth={true} />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Description" multiLine={true} value={this.state.description} errorText="This field is required." fullWidth={true} />
+                <TextField hintText="Description" multiLine={true} value={this.state.description} errorText={this.state.errorTextDescription} fullWidth={true} />
               </div>
             </div>
           </div>

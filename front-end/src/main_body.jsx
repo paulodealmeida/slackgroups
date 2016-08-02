@@ -37,16 +37,10 @@ var MainBody = React.createClass({
   },
 
   showGroupDetails: function(group){
-    console.log(this.refs.modalShowGroup);
-    console.log(this.refs.modalAddGroup);
-
     this.refs.modalShowGroup.handleOpen();
   },  
 
   showAddGroupModal: function(){
-    console.log(this.refs.modalShowGroup);
-    console.log(this.refs.modalAddGroup);
-
     this.refs.modalAddGroup.handleOpen();
   },
 
