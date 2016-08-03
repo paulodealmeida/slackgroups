@@ -58,18 +58,19 @@ var ModalAddGroup = React.createClass({
       hasError = true;
     } 
 
-    // if (!hasError) {
+    if (!hasError) {
 
-    //   axios.post(System.url_api + 'groups', {
-    //       group: group
-    //     })
-    //     .then(function (response) {
-    //       this.handleClose();
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
+      axios.request({
+        method: 'post',
+        url: System.url_api + 'groups',
+        dataType: 'json',
+        data: {group: group},
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        json: true
+      });
+    }
   },
 
   validateEmpty: function(element) {
