@@ -16,6 +16,9 @@ module Api
       end
 
       def create
+
+        puts '------------------>'
+        
         group = Group.new(group_params)
 
         if group.save

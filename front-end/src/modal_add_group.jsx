@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {blue900} from 'material-ui/styles/colors';
+import * as axios from 'axios';
 
 var ModalAddGroup = React.createClass({
 
@@ -13,7 +14,7 @@ var ModalAddGroup = React.createClass({
       open: false,
       errorTextName: "",
       errorTextUrl: "",
-      errorTextDescription: ""
+      errorTextDescription: ""     
     }
   },
 
@@ -34,18 +35,45 @@ var ModalAddGroup = React.createClass({
 
   handleAddGroup: function() {
 
-    var hasError = this.validateEmpty(this.state.name) ? false : this.setState({ errorTextName: "This field is required." });
-    hasError += this.validateEmpty(this.state.url) ? false : this.setState({ errorTextUrl: "This field is required." });
-    hasError += this.validateEmpty(this.state.Description) ? false : this.setState({ errorTextDescription: "This field is required." });
+    var hasError = false;
 
-    console.log(hasError);
+    var group = {
+      title: this.refs.title.getValue(),
+      url: this.refs.url.getValue(),
+      description: this.refs.description.getValue()
+    };
 
-    // this.setState({open: false});
+    if (!this.validateEmpty(group.title)) {
+      this.setState({ errorTextName: "This field is required." });
+      hasError = true;
+    } 
+
+    if (!this.validateEmpty(group.url)) {
+      this.setState({ errorTextUrl: "This field is required." });
+      hasError = true;
+    } 
+
+    if (!this.validateEmpty(group.description)) {
+      this.setState({ errorTextDescription: "This field is required." });
+      hasError = true;
+    } 
+
+    // if (!hasError) {
+
+    //   axios.post(System.url_api + 'groups', {
+    //       group: group
+    //     })
+    //     .then(function (response) {
+    //       this.handleClose();
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // }
   },
 
   validateEmpty: function(element) {
-
-    if (element == null || element == '') {
+    if (element == undefined || element == null || element == '') {
       return false;
     }
     return true;
@@ -81,13 +109,13 @@ var ModalAddGroup = React.createClass({
       
             <div className="row">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Name" value={this.state.name} errorText={this.state.errorTextName} fullWidth={true} />
+                <TextField hintText="Name" ref="title" errorText={this.state.errorTextName} fullWidth={true} />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Link" value={this.state.url} errorText={this.state.errorTextUrl} fullWidth={true} />
+                <TextField hintText="Link" ref="url" errorText={this.state.errorTextUrl} fullWidth={true} />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Description" multiLine={true} value={this.state.description} errorText={this.state.errorTextDescription} fullWidth={true} />
+                <TextField hintText="Description" ref="description" multiLine={true} errorText={this.state.errorTextDescription} fullWidth={true} />
               </div>
             </div>
           </div>
