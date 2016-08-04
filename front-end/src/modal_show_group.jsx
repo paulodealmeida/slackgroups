@@ -38,10 +38,11 @@ var ModalShowGroup = React.createClass({
           actions={actions}
           modal={true}
           open={this.state.open}
+          autoScrollBodyContent={true}
         >
 
           <div className="modal-content">
-            <p>{this.props.group.description}</p>
+            <p className="dialogShowDescription">{this.props.group.description}</p>
             <a href={this.props.group.link} target="_blank" className="link_group">{this.props.group.url}</a>
           </div>
 

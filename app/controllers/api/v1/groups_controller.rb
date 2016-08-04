@@ -17,7 +17,7 @@ module Api
 
       def create
 
-        group = Group.new(group_params)
+        group = Group.new(group_params_json)
 
         if group.save
           render json: group, status: :created
@@ -50,7 +50,11 @@ module Api
       def group_params
         params.require(:group).permit(:title, :description, :url)
       end
-      
+ 
+       def group_params_json
+        JSON.parse(params[:group])
+      end
+
       def add_allow_credentials_headers
         response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] || '*'                                                                                                                                                                                                     
         response.headers['Access-Control-Allow-Credentials'] = 'true'  

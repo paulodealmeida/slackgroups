@@ -12,7 +12,9 @@ var DisplayGroups = React.createClass({
     };
 
     const CardTitleStyle = {
-      paddingBottom: '0'
+      paddingBottom: '0',
+      maxHeight: '30px',
+      overflow: 'hidden'
     };
 
     const CardStyle = {

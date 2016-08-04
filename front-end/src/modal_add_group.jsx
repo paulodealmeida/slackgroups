@@ -7,6 +7,8 @@ import TextField from 'material-ui/TextField';
 import {blue900} from 'material-ui/styles/colors';
 import * as axios from 'axios';
 
+const queryString = require('query-string');
+
 var ModalAddGroup = React.createClass({
 
   getInitialState: function() {
@@ -58,18 +60,24 @@ var ModalAddGroup = React.createClass({
       hasError = true;
     } 
 
+    // Send a post request with the new group
+
     if (!hasError) {
 
-      axios.request({
-        method: 'post',
-        url: System.url_api + 'groups',
-        dataType: 'json',
-        data: {group: group},
+      var config = {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
-        json: true
-      });
+        responseType: 'json'
+      }
+
+      var _this = this;
+
+      axios.post(System.url_api + 'groups', queryString.stringify({group: JSON.stringify(group)}), config)
+        .then(function(response){
+          _this.props.reloadGoups();
+          _this.handleClose();
+        });  
     }
   },
 

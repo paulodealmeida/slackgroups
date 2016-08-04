@@ -15,6 +15,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
     "material-ui": "npm:material-ui@0.15.2",
+    "query-string": "npm:query-string@4.2.2",
     "react": "npm:react@15.2.1",
     "react-dom": "npm:react-dom@15.2.1",
     "react-tap-event-plugin": "npm:react-tap-event-plugin@1.0.0",
@@ -225,6 +226,10 @@ System.config({
     },
     "npm:punycode@1.3.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:query-string@4.2.2": {
+      "object-assign": "npm:object-assign@4.1.0",
+      "strict-uri-encode": "npm:strict-uri-encode@1.1.0"
     },
     "npm:react-addons-create-fragment@15.2.1": {
       "react": "npm:react@15.2.1"
