@@ -8,6 +8,7 @@ import * as axios from 'axios';
 
 import DisplayGroups from './display_groups';
 import ModalShowGroup from './modal_show_group';
+import ModalAddGroup from './modal_add_group';
 
 var MainBody = React.createClass({
 
@@ -36,12 +37,12 @@ var MainBody = React.createClass({
   },
 
   showGroupDetails: function(group){
-    this.setState({ group: group });
+    this.setState({ group: group })
     this.refs.modalShowGroup.handleOpen();
   },  
 
   showAddGroupModal: function(){
-    // $('#modalAddGroup').openModal();
+    this.refs.modalAddGroup.handleOpen();
   },
 
   render() {
@@ -52,8 +53,9 @@ var MainBody = React.createClass({
 
         <DisplayGroups groups={this.state.groups} showGroupDetails={this.showGroupDetails} />
         <ModalShowGroup ref='modalShowGroup' group={this.state.group} showModalState={this.state.showModalState} />
+        <ModalAddGroup ref='modalAddGroup' reloadGoups={this.reloadGoups} />
 
-        <FloatingActionButton className="bnt-right-bottom" backgroundColor={red500} >
+        <FloatingActionButton className="bnt-right-bottom" backgroundColor={red500} onClick={this.showAddGroupModal.bind(this)} >
           <ContentAdd />
         </FloatingActionButton>
 
