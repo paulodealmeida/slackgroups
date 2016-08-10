@@ -12,11 +12,11 @@ const queryString = require('query-string');
 var ModalAddGroup = React.createClass({
 
   getInitialState: function() {
-    return { 
+    return {
       open: false,
       errorTextName: "",
       errorTextUrl: "",
-      errorTextDescription: ""     
+      errorTextDescription: ""
     }
   },
 
@@ -48,17 +48,17 @@ var ModalAddGroup = React.createClass({
     if (!this.validateEmpty(group.title)) {
       this.setState({ errorTextName: "This field is required." });
       hasError = true;
-    } 
+    }
 
     if (!this.validateEmpty(group.url)) {
       this.setState({ errorTextUrl: "This field is required." });
       hasError = true;
-    } 
+    }
 
     if (!this.validateEmpty(group.description)) {
       this.setState({ errorTextDescription: "This field is required." });
       hasError = true;
-    } 
+    }
 
     // Send a post request with the new group
 
@@ -73,11 +73,15 @@ var ModalAddGroup = React.createClass({
 
       var _this = this;
 
-      axios.post(System.url_api + 'groups', queryString.stringify({group: JSON.stringify(group)}), config)
+      axios.post(System.url_api + 'groups',
+                 queryString.stringify({ title: group.title,
+                                         description: group.description,
+                                         url: group.url }),
+                 config)
         .then(function(response){
           _this.props.reloadGoups();
           _this.handleClose();
-        });  
+        });
     }
   },
 
@@ -93,13 +97,13 @@ var ModalAddGroup = React.createClass({
     const actions = [
       <FlatButton
         label="Close"
-        primary={true}        
+        primary={true}
         onTouchTap={this.handleClose} />,
       <FlatButton
-        label="Add" 
-        primary={true} 
-        keyboardFocused={true} 
-        onTouchTap={this.handleAddGroup} />        
+        label="Add"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleAddGroup} />
     ];
 
     return(
@@ -115,7 +119,7 @@ var ModalAddGroup = React.createClass({
         >
 
           <div className="modal-content">
-      
+
             <div className="row">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <TextField hintText="Name" ref="title" errorText={this.state.errorTextName} fullWidth={true} />

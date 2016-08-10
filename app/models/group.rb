@@ -1,22 +1,18 @@
 class Group < ActiveRecord::Base
-  
   validates_presence_of :title, :description, :url
 
   def link
+    return 'http://' + url if !url.nil? && !url.include?('http')
 
-  	if (url != nil && !(url.include? "http"))
-  		return 'http://' + url
-  	end
-
-  	return url
+    url
   end
 
-	def as_json(options={})
-	  { 
-	  	:title => self.title,
-	  	:description => self.description,
-	  	:url => self.url,
-	  	:link => self.link
-	  }
-	end
+  def as_json(options = {})
+    {
+      title: title,
+      description: description,
+      url: url,
+      link: link
+    }
+  end
 end

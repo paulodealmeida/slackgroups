@@ -7,7 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 var ModalShowGroup = React.createClass({
 
   getInitialState: function() {
-    return { 
+    return {
       open: false
     }
   },
