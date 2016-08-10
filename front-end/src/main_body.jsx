@@ -13,7 +13,7 @@ import ModalAddGroup from './modal_add_group';
 var MainBody = React.createClass({
 
   getInitialState: function() {
-    return { 
+    return {
       groups: [],
       group: {}
     }
@@ -39,15 +39,15 @@ var MainBody = React.createClass({
   showGroupDetails: function(group){
     this.setState({ group: group })
     this.refs.modalShowGroup.handleOpen();
-  },  
+  },
 
   showAddGroupModal: function(){
     this.refs.modalAddGroup.handleOpen();
   },
 
   render() {
-		
-    return (              
+
+    return (
 
       <div className="container">
 

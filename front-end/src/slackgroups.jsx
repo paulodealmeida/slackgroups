@@ -10,7 +10,7 @@ class Slackgroups extends React.Component {
 		return (
 			<MuiThemeProvider>
 				<div>
-					<Header /> 
+					<Header />
 					<MainBody />
 				</div>
 			</MuiThemeProvider>
