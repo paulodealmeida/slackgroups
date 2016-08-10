@@ -29,7 +29,7 @@ var DisplayGroups = React.createClass({
             <CardTitle title={group.title} style={CardTitleStyle} onClick={this.props.showGroupDetails.bind(null, group)} className="clickable" />
             <CardText style={CardTextStyle}>
               <div>
-                {group.description} 
+                {group.description}
               </div>
             </CardText>
             <CardActions>
