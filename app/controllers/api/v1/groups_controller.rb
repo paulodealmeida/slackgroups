@@ -15,7 +15,7 @@ module Api
       end
 
       def create
-        group = Group.new(group_params)
+        group = current_user.groups.new(group_params)
 
         if group.save
           render json: group, status: :created
@@ -47,9 +47,9 @@ module Api
 
       def group_params
         if params[:group].present?
-          params.require(:group).permit(:title, :description, :url)
+          params.require(:group).permit(:title, :description, :url, :user)
         else
-          params.permit(:title, :description, :url)
+          params.permit(:title, :description, :url, :user)
         end
       end
 

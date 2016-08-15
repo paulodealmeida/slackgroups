@@ -1,12 +1,16 @@
 require 'rails_helper'
 
 describe Api::V1::GroupsController, type: :controller do
-  before(:each) { request.headers['Accept'] = 'application/vnd.slackgroups.v1' }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:group) { FactoryGirl.create(:group, user: user) }
+
+  before(:each) do
+    request.headers['Accept'] = 'application/vnd.slackgroups.v1'
+  end
 
   describe 'GET #index' do
     before(:each) do
-      @group_attributes = FactoryGirl.attributes_for(:group)
-      post :create, { group: @group_attributes }, format: :json
+      group
       get :index, format: :json
     end
 
@@ -33,6 +37,7 @@ describe Api::V1::GroupsController, type: :controller do
   describe 'POST #create' do
     context 'when is successfully created' do
       before(:each) do
+        sign_in_user user
         @group_attributes = FactoryGirl.attributes_for(:group)
         post :create, { group: @group_attributes }, format: :json
       end
@@ -46,6 +51,7 @@ describe Api::V1::GroupsController, type: :controller do
 
     context 'when is not created' do
       before(:each) do
+        sign_in_user user
         @invalid_group_attributes = { title: nil, amount: nil, date: nil }
         post :create, { group: @invalid_group_attributes }, format: :json
       end
@@ -71,6 +77,7 @@ describe Api::V1::GroupsController, type: :controller do
 
     context 'when group is successfully updated' do
       before(:each) do
+        sign_in_user user
         patch :update,
           { id: @group.id, group: { title: 'New title' } },
           format: :json
@@ -104,6 +111,7 @@ describe Api::V1::GroupsController, type: :controller do
 
   describe 'DELETE #destroy' do
     before(:each) do
+      sign_in_user user
       @group = FactoryGirl.create(:group)
       delete :destroy, { id: @group.id }, format: :json
     end
