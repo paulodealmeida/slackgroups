@@ -29,4 +29,3 @@ module Myapp
     })
   end
 end
-
