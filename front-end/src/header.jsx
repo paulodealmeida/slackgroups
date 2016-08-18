@@ -1,19 +1,81 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {blue900} from 'material-ui/styles/colors';
 
 class Header extends React.Component {
 
-	render() {
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
 
-		const AppBarStyle = {
-			backgroundColor: blue900
-		};
+  handleToggle() {
+    this.setState({open: !this.state.open});
+  }
 
-		return (
-			<AppBar title="Title" style={AppBarStyle} showMenuIconButton={false} />
-		)
-	}
+  handleClose() {
+    this.setState({open: false});
+  }
+
+  showAddGroupModal() {
+    this.props.showAddGroupModal();
+    this.handleClose();
+  }
+
+  showSignInModal() {
+    this.props.showSignInModal();
+    this.handleClose();
+  }
+
+  showSignUpModal() {
+    this.props.showSignUpModal();
+    this.handleClose();
+  }
+
+  render() {
+
+    const AppBarStyle = {
+      backgroundColor: blue900
+    };
+
+    return (
+      <div>
+        <AppBar
+          title="Slackgroups"
+          style={AppBarStyle}
+          onLeftIconButtonTouchTap={this.handleToggle}
+        />
+        <Drawer
+          docked={false}
+          width={200}
+          open={this.state.open}
+          onRequestChange={(open) => this.setState({open})}
+        >
+          <AppBar
+            title="Menu"
+            style={AppBarStyle}
+            showMenuIconButton={false}
+          />
+          <MenuItem onTouchTap={this.showSignInModal.bind(this)} >
+            Sign In
+          </MenuItem>
+          <MenuItem onTouchTap={this.showSignUpModal.bind(this)} >
+            Sign Up
+          </MenuItem>
+          <MenuItem onTouchTap={this.showAddGroupModal.bind(this)} >
+            Add New Group
+          </MenuItem>
+        </Drawer>
+      </div>
+    )
+  }
 };
 
 export default Header;
