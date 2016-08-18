@@ -38,7 +38,11 @@ module Api
       end
 
       def user_params
-        params.require(:user).permit(:email, :password, :password_confirmation)
+        if params[:user].present?
+          params.require(:user).permit(:email, :password, :password_confirmation)
+        else
+          params.permit(:email, :password, :password_confirmation)
+        end
       end
     end
   end
