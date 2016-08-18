@@ -28,11 +28,11 @@ var ModalAddGroup = React.createClass({
 
   handleOpen: function() {
     this.resetErrorMessage();
-    this.setState({open: true});
+    this.setState({ open: true });
   },
 
   handleClose: function() {
-    this.setState({open: false});
+    this.setState({ open: false });
   },
 
   handleAddGroup: function() {
@@ -79,7 +79,7 @@ var ModalAddGroup = React.createClass({
                                          url: group.url }),
                  config)
         .then(function(response){
-          _this.props.reloadGoups();
+          _this.props.reloadGroups();
           _this.handleClose();
         });
     }
@@ -107,9 +107,7 @@ var ModalAddGroup = React.createClass({
     ];
 
     return(
-
       <div>
-
         <Dialog
           title='Add new group'
           actions={actions}
@@ -117,25 +115,29 @@ var ModalAddGroup = React.createClass({
           open={this.state.open}
           autoScrollBodyContent={true}
         >
-
-          <div className="modal-content">
-
-            <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Name" ref="title" errorText={this.state.errorTextName} fullWidth={true} />
-              </div>
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Link" ref="url" errorText={this.state.errorTextUrl} fullWidth={true} />
-              </div>
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TextField hintText="Description" ref="description" multiLine={true} errorText={this.state.errorTextDescription} fullWidth={true} />
-              </div>
-            </div>
-          </div>
-
+          <TextField
+            hintText="Name"
+            ref="title"
+            errorText={this.state.errorTextName}
+            fullWidth={true}
+          />
+          <TextField
+            hintText="Link"
+            ref="url"
+            errorText={this.state.errorTextUrl}
+            fullWidth={true}
+          />
+          <TextField
+            hintText="Description"
+            ref="description"
+            errorText={this.state.errorTextDescription}
+            fullWidth={true}
+            multiLine={true}
+            rows={2}
+            rowsMax={4}
+          />
         </Dialog>
       </div>
-
     )
   }
 });
