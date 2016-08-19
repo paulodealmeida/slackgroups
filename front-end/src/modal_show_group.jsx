@@ -13,11 +13,11 @@ var ModalShowGroup = React.createClass({
   },
 
   handleOpen: function() {
-    this.setState({open: true});
+    this.setState({ open: true });
   },
 
   handleClose: function() {
-    this.setState({open: false});
+    this.setState({ open: false });
   },
 
   render() {
@@ -26,29 +26,26 @@ var ModalShowGroup = React.createClass({
       <FlatButton
         label="Close"
         primary={true}
-        onTouchTap={this.handleClose} />
+        onTouchTap={this.handleClose}
+      />
     ];
 
     return(
-
       <div>
-
         <Dialog
           title={this.props.group.title}
           actions={actions}
-          modal={true}
+          modal={false}
           open={this.state.open}
           autoScrollBodyContent={true}
+          onRequestClose={this.handleClose}
         >
-
           <div className="modal-content">
             <p className="dialogShowDescription">{this.props.group.description}</p>
             <a href={this.props.group.link} target="_blank" className="link_group">{this.props.group.url}</a>
           </div>
-
         </Dialog>
       </div>
-
     )
   }
 });

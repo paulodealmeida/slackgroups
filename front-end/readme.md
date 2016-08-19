@@ -11,7 +11,7 @@ $ npm install -g gulp jspm
 ```
 
 After that, you must install all the npm and jspm dependencies on the project:
-(Run these commands inside the 'front-end' directory) 
+(Run these commands inside the 'front-end' directory)
 ```bash
 $ npm install
 $ jspm install

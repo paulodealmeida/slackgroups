@@ -7,14 +7,13 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 class Slackgroups extends React.Component {
   render() {
 
-		return (
-			<MuiThemeProvider>
-				<div>
-					<Header />
-					<MainBody />
-				</div>
-			</MuiThemeProvider>
-		)
+    return (
+      <MuiThemeProvider>
+        <div>
+          <MainBody />
+        </div>
+      </MuiThemeProvider>
+    )
   }
 }
 

@@ -9,7 +9,7 @@ import * as axios from 'axios';
 
 const queryString = require('query-string');
 
-var ModalAddGroup = React.createClass({
+var ModalSignIn = React.createClass({
 
   getInitialState: function() {
     return {
@@ -21,9 +21,6 @@ var ModalAddGroup = React.createClass({
   },
 
   resetErrorMessage: function() {
-    this.setState({ errorTextName: "" });
-    this.setState({ errorTextUrl: "" });
-    this.setState({ errorTextDescription: "" });
   },
 
   handleOpen: function() {
@@ -35,32 +32,24 @@ var ModalAddGroup = React.createClass({
     this.setState({ open: false });
   },
 
-  handleAddGroup: function() {
+  handleSignIn: function() {
 
     var hasError = false;
 
-    var group = {
-      title: this.refs.title.getValue(),
-      url: this.refs.url.getValue(),
-      description: this.refs.description.getValue()
+    var user = {
+      email: this.refs.email.getValue(),
+      password: this.refs.password.getValue()
     };
 
-    if (!this.validateEmpty(group.title)) {
+    if (!this.validateEmpty(user.email)) {
       this.setState({ errorTextName: "This field is required." });
       hasError = true;
     }
 
-    if (!this.validateEmpty(group.url)) {
+    if (!this.validateEmpty(user.password)) {
       this.setState({ errorTextUrl: "This field is required." });
       hasError = true;
     }
-
-    if (!this.validateEmpty(group.description)) {
-      this.setState({ errorTextDescription: "This field is required." });
-      hasError = true;
-    }
-
-    // Send a post request with the new group
 
     if (!hasError) {
 
@@ -73,16 +62,15 @@ var ModalAddGroup = React.createClass({
 
       var _this = this;
 
-      axios.post(System.url_api + 'groups',
-                 queryString.stringify({ title: group.title,
-                                         description: group.description,
-                                         url: group.url }),
+      axios.post(System.url_api + 'sessions',
+                 queryString.stringify({ email: user.email,
+                                         password: user.password }),
                  config)
         .then(function(response){
-          _this.props.reloadGroups();
           _this.handleClose();
         });
     }
+
   },
 
   validateEmpty: function(element) {
@@ -98,43 +86,38 @@ var ModalAddGroup = React.createClass({
       <FlatButton
         label="Close"
         primary={true}
-        onTouchTap={this.handleClose} />,
+        onTouchTap={this.handleClose}
+      />,
       <FlatButton
-        label="Add"
+        label="Sign In"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleAddGroup} />
+        onTouchTap={this.handleSignIn}
+      />
     ];
 
     return(
       <div>
         <Dialog
-          title='Add new group'
+          title='Sign In'
           actions={actions}
-          modal={true}
+          modal={false}
           open={this.state.open}
           autoScrollBodyContent={true}
+          onRequestClose={this.handleClose}
         >
           <TextField
-            hintText="Name"
-            ref="title"
-            errorText={this.state.errorTextName}
+            hintText="Email"
+            ref="email"
+            errorText={this.state.errorTextEmail}
             fullWidth={true}
           />
           <TextField
-            hintText="Link"
-            ref="url"
-            errorText={this.state.errorTextUrl}
+            hintText="Password"
+            ref="password"
+            errorText={this.state.errorTextPassword}
             fullWidth={true}
-          />
-          <TextField
-            hintText="Description"
-            ref="description"
-            errorText={this.state.errorTextDescription}
-            fullWidth={true}
-            multiLine={true}
-            rows={2}
-            rowsMax={4}
+            type="password"
           />
         </Dialog>
       </div>
@@ -142,4 +125,4 @@ var ModalAddGroup = React.createClass({
   }
 });
 
-export default ModalAddGroup;
+export default ModalSignIn;

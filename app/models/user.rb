@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   before_create :generate_auth_token!
 
+  has_many :groups
+
   def generate_auth_token!
     begin
       self.auth_token = Devise.friendly_token

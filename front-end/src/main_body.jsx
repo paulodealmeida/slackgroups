@@ -3,12 +3,13 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {red500} from 'material-ui/styles/colors';
-
-import * as axios from 'axios';
-
 import DisplayGroups from './display_groups';
 import ModalShowGroup from './modal_show_group';
 import ModalAddGroup from './modal_add_group';
+import ModalSignIn from './modal_sign_in';
+import ModalSignUp from './modal_sign_up';
+import Header from './header';
+import * as axios from 'axios';
 
 var MainBody = React.createClass({
 
@@ -20,10 +21,10 @@ var MainBody = React.createClass({
   },
 
   componentDidMount() {
-    this.reloadGoups();
+    this.reloadGroups();
   },
 
-  reloadGoups: function() {
+  reloadGroups: function() {
 
     var _this = this;
 
@@ -45,20 +46,37 @@ var MainBody = React.createClass({
     this.refs.modalAddGroup.handleOpen();
   },
 
+  showSignInModal: function(){
+    this.refs.modalSignIn.handleOpen();
+  },
+
+  showSignUpModal: function(){
+    this.refs.modalSignUp.handleOpen();
+  },
+
   render() {
 
     return (
-
-      <div className="container">
-
-        <DisplayGroups groups={this.state.groups} showGroupDetails={this.showGroupDetails} />
-        <ModalShowGroup ref='modalShowGroup' group={this.state.group} showModalState={this.state.showModalState} />
-        <ModalAddGroup ref='modalAddGroup' reloadGoups={this.reloadGoups} />
-
-        <FloatingActionButton className="bnt-right-bottom" backgroundColor={red500} onClick={this.showAddGroupModal.bind(this)} >
-          <ContentAdd />
-        </FloatingActionButton>
-
+      <div>
+        <Header
+          showAddGroupModal={this.showAddGroupModal}
+          showSignInModal={this.showSignInModal}
+          showSignUpModal={this.showSignUpModal}
+        />
+        <div className="container">
+          <DisplayGroups groups={this.state.groups} showGroupDetails={this.showGroupDetails} />
+          <ModalShowGroup
+            ref='modalShowGroup'
+            group={this.state.group}
+            showModalState={this.state.showModalState}
+          />
+          <ModalAddGroup
+            ref='modalAddGroup'
+            reloadGroups={this.reloadGroups}
+          />
+          <ModalSignIn ref='modalSignIn' />
+          <ModalSignUp ref='modalSignUp' />
+        </div>
       </div>
     )
   }
