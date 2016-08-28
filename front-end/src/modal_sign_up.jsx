@@ -21,6 +21,9 @@ var ModalSignUp = React.createClass({
   },
 
   resetErrorMessage: function() {
+    this.setState({ errorTextEmail: '' });
+    this.setState({ errorTextPassword: '' });
+    this.setState({ errorTextPasswordConfirmation: '' });
   },
 
   handleOpen: function() {
@@ -30,6 +33,19 @@ var ModalSignUp = React.createClass({
 
   handleClose: function() {
     this.setState({ open: false });
+  },
+
+  handleSignUpErrors: function(errors) {
+    if (errors.password) {
+      this.setState({ errorTextPassword: 'Password ' + errors.password });
+      this.setState({ errorTextPasswordConfirmation: 'Password ' + errors.password });
+    }
+    if (errors.password_confirmation) {
+      this.setState({ errorTextPasswordConfirmation: 'Password Confirmation ' + errors.password_confirmation });
+    }
+    if (errors.email) {
+      this.setState({ errorTextEmail: 'Email ' + errors.email });
+    }
   },
 
   handleSignUp: function() {
@@ -43,17 +59,17 @@ var ModalSignUp = React.createClass({
     };
 
     if (!this.validateEmpty(user.email)) {
-      this.setState({ errorTextName: "This field is required." });
+      this.setState({ errorTextEmail: "This field is required." });
       hasError = true;
     }
 
     if (!this.validateEmpty(user.password)) {
-      this.setState({ errorTextUrl: "This field is required." });
+      this.setState({ errorTextPassword: "This field is required." });
       hasError = true;
     }
 
     if (!this.validateEmpty(user.password_confirmation)) {
-      this.setState({ errorTextUrl: "This field is required." });
+      this.setState({ errorTextPasswordConfirmation: "This field is required." });
       hasError = true;
     }
 
@@ -71,10 +87,13 @@ var ModalSignUp = React.createClass({
       axios.post(System.url_api + 'users',
                  queryString.stringify({ email: user.email,
                                          password: user.password,
-                                         password_confirmation: user.password_conf }),
+                                         password_confirmation: user.password_confirmation }),
                  config)
         .then(function(response){
           _this.handleClose();
+          localStorage.setItem('auth_token', response.data.auth_token);
+        }).catch(function(error) {
+          _this.handleSignUpErrors(error.response.data.errors)
         });
     }
 
@@ -89,16 +108,22 @@ var ModalSignUp = React.createClass({
 
   render() {
 
+    const style = {
+      margin: 10,
+    };
+
     const actions = [
-      <FlatButton
+      <RaisedButton
         label="Close"
-        primary={true}
-        onTouchTap={this.handleClose} />,
-      <FlatButton
+        onTouchTap={this.handleClose}
+        style={style}
+      />,
+      <RaisedButton
         label="Sign Up"
         primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleSignUp} />
+        onTouchTap={this.handleSignUp}
+        style={style}
+      />
     ];
 
     return(
@@ -112,20 +137,20 @@ var ModalSignUp = React.createClass({
           onRequestClose={this.handleClose}
         >
           <TextField
-            hintText="Email"
+            floatingLabelText="Email"
             ref="email"
             errorText={this.state.errorTextEmail}
             fullWidth={true}
           />
           <TextField
-            hintText="Password"
+            floatingLabelText="Password"
             ref="password"
             errorText={this.state.errorTextPassword}
             fullWidth={true}
             type="password"
           />
           <TextField
-            hintText="Password confirmation"
+            floatingLabelText="Password confirmation"
             ref="password_confirmation"
             errorText={this.state.errorTextPasswordConfirmation}
             fullWidth={true}

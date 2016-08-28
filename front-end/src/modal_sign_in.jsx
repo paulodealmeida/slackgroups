@@ -21,6 +21,8 @@ var ModalSignIn = React.createClass({
   },
 
   resetErrorMessage: function() {
+    this.setState({ errorTextEmail: '' });
+    this.setState({ errorTextPassword: '' });
   },
 
   handleOpen: function() {
@@ -30,6 +32,11 @@ var ModalSignIn = React.createClass({
 
   handleClose: function() {
     this.setState({ open: false });
+  },
+
+  handleSignInErrors: function(errors) {
+    this.setState({ errorTextEmail: errors });
+    this.setState({ errorTextPassword: errors });
   },
 
   handleSignIn: function() {
@@ -42,12 +49,12 @@ var ModalSignIn = React.createClass({
     };
 
     if (!this.validateEmpty(user.email)) {
-      this.setState({ errorTextName: "This field is required." });
+      this.setState({ errorTextEmail: "This field is required." });
       hasError = true;
     }
 
     if (!this.validateEmpty(user.password)) {
-      this.setState({ errorTextUrl: "This field is required." });
+      this.setState({ errorTextPassword: "This field is required." });
       hasError = true;
     }
 
@@ -66,8 +73,11 @@ var ModalSignIn = React.createClass({
                  queryString.stringify({ email: user.email,
                                          password: user.password }),
                  config)
-        .then(function(response){
+        .then(function(response) {
           _this.handleClose();
+          localStorage.setItem('auth_token', response.data.auth_token);
+        }).catch(function(error) {
+          _this.handleSignInErrors(error.response.data.errors)
         });
     }
 
@@ -82,17 +92,21 @@ var ModalSignIn = React.createClass({
 
   render() {
 
+    const style = {
+      margin: 10,
+    };
+
     const actions = [
-      <FlatButton
+      <RaisedButton
         label="Close"
-        primary={true}
         onTouchTap={this.handleClose}
+        style={style}
       />,
-      <FlatButton
+      <RaisedButton
         label="Sign In"
         primary={true}
-        keyboardFocused={true}
         onTouchTap={this.handleSignIn}
+        style={style}
       />
     ];
 
@@ -107,13 +121,13 @@ var ModalSignIn = React.createClass({
           onRequestClose={this.handleClose}
         >
           <TextField
-            hintText="Email"
+            floatingLabelText="Email"
             ref="email"
             errorText={this.state.errorTextEmail}
             fullWidth={true}
           />
           <TextField
-            hintText="Password"
+            floatingLabelText="Password"
             ref="password"
             errorText={this.state.errorTextPassword}
             fullWidth={true}
