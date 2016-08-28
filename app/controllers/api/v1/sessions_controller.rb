@@ -5,7 +5,7 @@ module Api
 
       def create
         user = User.find_by(email: session_params[:email])
-        if user.valid_password?(session_params[:password])
+        if user && user.valid_password?(session_params[:password])
           user.generate_auth_token!
           user.save
           render json: user, status: :created, location: [:api, user]
