@@ -41,7 +41,6 @@ class Header extends React.Component {
 
   signOut() {
     localStorage.removeItem('auth_token');
-    this.showSnackbarMessage('Successfully signed out');
     this.handleClose();
   }
 
