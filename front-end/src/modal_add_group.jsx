@@ -66,7 +66,8 @@ var ModalAddGroup = React.createClass({
 
       var config = {
         headers: {
-          'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'Authorization': localStorage.getItem('auth_token')
         },
         responseType: 'json'
       }
@@ -94,16 +95,22 @@ var ModalAddGroup = React.createClass({
 
   render() {
 
+    const style = {
+      margin: 10,
+    };
+
     const actions = [
-      <FlatButton
+      <RaisedButton
         label="Close"
-        primary={true}
-        onTouchTap={this.handleClose} />,
-      <FlatButton
+        onTouchTap={this.handleClose}
+        style={style}
+      />,
+      <RaisedButton
         label="Add"
         primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleAddGroup} />
+        onTouchTap={this.handleAddGroup}
+        style={style}
+      />
     ];
 
     return(
@@ -116,19 +123,19 @@ var ModalAddGroup = React.createClass({
           autoScrollBodyContent={true}
         >
           <TextField
-            hintText="Name"
+            floatingLabelText="Name"
             ref="title"
             errorText={this.state.errorTextName}
             fullWidth={true}
           />
           <TextField
-            hintText="Link"
+            floatingLabelText="Link"
             ref="url"
             errorText={this.state.errorTextUrl}
             fullWidth={true}
           />
           <TextField
-            hintText="Description"
+            floatingLabelText="Description"
             ref="description"
             errorText={this.state.errorTextDescription}
             fullWidth={true}

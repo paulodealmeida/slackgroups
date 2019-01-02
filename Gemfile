@@ -13,6 +13,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'tzinfo-data'
 gem 'react-rails'
 gem 'devise'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development do
   gem 'guard-rspec', require: false

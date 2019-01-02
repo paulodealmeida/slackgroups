@@ -39,6 +39,11 @@ class Header extends React.Component {
     this.handleClose();
   }
 
+  signOut() {
+    localStorage.removeItem('auth_token');
+    this.handleClose();
+  }
+
   render() {
 
     const AppBarStyle = {
@@ -63,15 +68,26 @@ class Header extends React.Component {
             style={AppBarStyle}
             showMenuIconButton={false}
           />
-          <MenuItem onTouchTap={this.showSignInModal.bind(this)} >
-            Sign In
-          </MenuItem>
-          <MenuItem onTouchTap={this.showSignUpModal.bind(this)} >
-            Sign Up
-          </MenuItem>
-          <MenuItem onTouchTap={this.showAddGroupModal.bind(this)} >
-            Add New Group
-          </MenuItem>
+          {(localStorage.getItem('auth_token') == null ) ?
+            [
+              <MenuItem onTouchTap={this.showSignInModal.bind(this)} >
+                Sign In
+              </MenuItem>,
+              <MenuItem onTouchTap={this.showSignUpModal.bind(this)} >
+                Sign Up
+              </MenuItem>
+            ]
+          : null}
+          {(localStorage.getItem('auth_token') != null ) ?
+            [
+              <MenuItem onTouchTap={this.showAddGroupModal.bind(this)} >
+                Add New Group
+              </MenuItem>,
+              <MenuItem onTouchTap={this.signOut.bind(this)} >
+                Sign Out
+              </MenuItem>
+            ]
+          : null}
         </Drawer>
       </div>
     )
